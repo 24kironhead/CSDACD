@@ -1,0 +1,54 @@
+# CSDACD_EF
+
+out_dir: p2v_ef
+criterion: WBCE+MSE+L1+L1_SCA
+model: CSDACD_EF+GAN_SW+GAN_WS+DIS_S+DIS_W
+out_type: logits
+
+p2v_model:
+  in_ch: 3
+  video_len: 12
+gan_model:
+  input_channel: 3
+  num_residual_blocks: 9
+dis_model:
+  c: 3
+  h: 256
+  w: 256
+cmb_coeffs:
+  - 1.0
+  - 0.4
+
+# Optimizer_GAN
+optimizer_gan: Adam_gan
+lr_gan: 0.0005
+weight_decay_gan: 0.0005
+gan_b1: 0.5
+gan_b2: 0.999
+load_optim: False
+save_optim: False
+sched_on: True
+schedulers_gan:
+  - name: LambdaLR
+    n_epochs: 200
+    offset: 0
+    decay_start_epoch: 50
+schedulers_gan_DS:
+  - name: LambdaLR
+    n_epochs: 200
+    offset: 0
+    decay_start_epoch: 50
+schedulers_gan_DW:
+  - name: LambdaLR
+    n_epochs: 200
+    offset: 0
+    decay_start_epoch: 50
+
+lambda_cyc: 10
+lambda_id: 1
+lambda_sca: 2
+
+resume_G_SW: ''
+resume_G_WS: ''
+resume_D_S: ''
+resume_D_W: ''

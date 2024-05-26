@@ -24,6 +24,7 @@ from utils.losses import MixedLoss, CombinedLoss
 from torch.autograd import Variable
 import constants
 import shutil
+import cv2
 
 class CSDACDTrainer(Trainer):
     def __init__(self, settings):
@@ -297,6 +298,7 @@ class CSDACDTrainer(Trainer):
                 desc = (start_pattern+" Loss: {:.4f} ({:.4f})").format(i+1, len_eval, losses.val, losses.avg)
                 for m in metrics:
                     desc += " {} {:.4f}".format(m.__name__, m.val)
+                desc += " Params {}".format(self.count_parameters(self.model) + self.count_parameters(self.gan_SW) + self.count_parameters(self.gan_WS))
                 desc += "\n"
 
                 pb.set_description(desc)
@@ -307,8 +309,10 @@ class CSDACDTrainer(Trainer):
                 if self.save:
                     for j in range(batch_size):
                         self.save_image(name[j], quantize(cm[j]), epoch)
-
-        print('Params:',self.count_parameters(self.model) + self.count_parameters(self.gan_SW) + self.count_parameters(self.gan_WS))
+                        fake_S_out, fake_W_out = to_array(fake_S[j]), to_array(fake_W[j])
+                        fake_S_out, fake_W_out = self._denorm_image(fake_S_out).astype('uint8'), self._denorm_image(fake_W_out).astype('uint8')
+                        self.save_image_gan(str(name[j]), fake_W_out, str(epoch)+'_G_AB')
+                        self.save_image_gan(str(name[j]), fake_S_out, str(epoch)+'_G_BA')
         return metrics[2].val   # F1-score
     
     def train(self):
@@ -452,6 +456,20 @@ class CSDACDTrainer(Trainer):
                 )
             )
     
+
+    def save_image_gan(self, file_name, image, epoch):
+        file_path = osp.join(
+            'epoch_{}'.format(epoch),
+            self.out_dir,
+            file_name
+        )
+        out_path = self.path(
+            'out', file_path,
+            suffix=not self.ctx['suffix_off'],
+            auto_make=True,
+            underline=True
+        )
+        return cv2.imwrite(out_path, image)
 
     def _init_trainer(self):
         if self.ctx.get('mix_coeffs') is not None:

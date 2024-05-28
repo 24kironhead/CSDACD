@@ -88,7 +88,7 @@ We provide pretrained models for three different model structures (EF、FF and O
 | :-------: | :----------------------------------------------------------: |
 | CSDACD_EF | [BaiduNetdisk (Extraction code: w8b8)](https://pan.baidu.com/s/1keEMc_BeZYsq33qsDQg61Q) |
 | CSDACD_FF | [BaiduNetdisk (Extraction code: lsv9)](https://pan.baidu.com/s/1ybyttbnS25H4y8D9bNAb-A) |
-| CSDACD_OF |                                                              |
+| CSDACD_OF | [BaiduNetdisk (Extraction code: rvbq)](https://pan.baidu.com/s/1sQFTAQlXcPtUIYJVD44WWg) |
 
 ### WHU Dataset
 
@@ -110,7 +110,7 @@ Here are the qualitative and quantitative results of our proposed model and base
 
 ### WHU Dataset
 
-
+![WHU_result](WHU_result_v0.jpg)
 
 ## Quantitative Results
 
@@ -122,9 +122,9 @@ Here are the qualitative and quantitative results of our proposed model and base
 |    P2V    |   98.39   |   98.18   |   98.29   |   96.63   |   5.42    |
 |   RSIT    |   97.47   |   96.48   |   96.97   |   94.12   |   18.06   |
 |   SDACD   |   97.34   |   97.74   |   97.54   |   95.20   |   52.92   |
-| CSDACD-EF | **98.79** |   98.54   |   98.66   |   97.36   |   28.18   |
-| CSDACD-FF | **98.79** | **98.66** | **98.72** | **97.48** |   31.30   |
-| CSDACD-OF |   ****    |           |           |           |           |
+| CSDACD-EF |   98.79   |   98.54   |   98.66   |   97.36   |   28.18   |
+| CSDACD-FF |   98.79   | **98.66** |   98.72   |   97.48   |   31.30   |
+| CSDACD-OF | **98.85** |   98.61   | **98.73** | **97.49** |   34.62   |
 
 ### WHU Dataset
 
@@ -144,6 +144,8 @@ Here are the qualitative and quantitative results of our proposed model and base
 
 - [CDLab](https://github.com/Bobholamovic/CDLab)
 - [SDACD](https://github.com/Perfect-You/SDACD)
+- [CDD dataset](https://drive.google.com/file/d/1GX656JqqOyBi_Ef0w65kDGVto-nHrNs9/edit)
+- [WHU dataset](https://study.rsgis.whu.edu.cn/pages/download/building_dataset.html)
 
 # Citation
 

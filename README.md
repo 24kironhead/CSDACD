@@ -4,7 +4,7 @@ The source code for CSDACD: Domain-adaptive Change Detection Network for Cross-s
 
 # Abstract
 
-Change detection (CD) is a crucial task in earth remote sensing, and it plays a significant role in analyzing changes in a region. However, bi-temporal images acquisition may cause domain shift problems due to the seasonal difference. Most cross-seasonal change detection methods currently in use make it difficult to capture the impact of domain shift. In contrast, domain adaptation (DA) methods struggle with fuzzy semantic correspondence and suboptimal use of generated data, which leads to incomplete target images. To address these problems, we propose CSDACD, an end-to-end domain-adaptive change detection network that integrates domain-adaptive images into the CD network. Additionally, we introduce the Semantic Change Alignment (SCA) module to include the registration and semantic change information of bi-temporal images and design three data fusion modules to enhance the adaptability of DA and CD networks. Our experiments show that CSDACD outperforms the state-of-the-art (SOTA) methods in cross-seasonal change detection tasks, achieving an F1-score of 98.72% and IoU of 97.48% in the CDD dataset.  
+Change detection (CD) is a crucial task in earth remote sensing, and it plays a significant role in analyzing changes in a region. However, bi-temporal images acquisition may cause domain shift problems due to the seasonal difference. Most cross-seasonal change detection methods currently in use make it difficult to capture the impact of domain shift. In contrast, domain adaptation (DA) methods struggle with fuzzy semantic correspondence and suboptimal use of generated data, which leads to incomplete target images. To address these problems, we propose CSDACD, an end-to-end domain-adaptive change detection network that integrates domain-adaptive images into the CD network. Additionally, we introduce the Semantic Change Alignment (SCA) module to include the registration and semantic change information of bi-temporal images and design three data fusion modules to enhance the adaptability of DA and CD networks. Our experiments show that CSDACD outperforms the state-of-the-art (SOTA) methods in cross-seasonal change detection tasks, achieving an F1-score of 98.73% and IoU of 97.49% in the CDD dataset.  
 
 ![Overall](Overall.png)
 
@@ -28,11 +28,11 @@ cd src
 python train.py train --exp_config PATH_CONFIG_FILE 
 ```
 
-For example, if you want to train the `CSDACD_FF` model with `CDD` dataset, use
+For example, if you want to train the `CSDACD_OF` model with `CDD` dataset, use
 
 ```bash
 cd src
-python train.py train --exp_config ../configs/cdd/config_cdd_csdacd_ff.yaml
+python train.py train --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml
 ```
 
 The CSDACD is built based on CDLab Framework, for more model training details, please refer to https://github.com/Bobholamovic/CDLab.
@@ -46,11 +46,11 @@ cd src
 python train.py eval --exp_config PATH_TO_CONFIG_FILE --resume PATH_TO_CD_MODEL_CHECKPOINT --resume_G_SW PATH_TO_G_SW_MODEL_CHECKPOINT --resume_G_WS PATH_TO_G_WS_MODEL_CHECKPOINT --save_on --subset test
 ```
 
-For example, if you want to evaluate the `CSDACD_FF` model with `CDD` dataset, use
+For example, if you want to evaluate the `CSDACD_OF` model with `CDD` dataset, use
 
 ```bash
 cd src
-python train.py eval --exp_config ../configs/cdd/config_cdd_csdacd_ff.yaml --resume ../weights/cdd_ff/CD_model_best_csdacd_ff.pth --resume_G_SW ../weights/cdd_ff/G_SW_model_best_csdacd_ff.pth --resume_G_WS ../weights/cdd_ff/G_WS_model_best_csdacd_ff.pth --save_on --subset test
+python train.py eval --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml --resume ../weights/cdd_of/CD_model_best_csdacd_of.pth --resume_G_SW ../weights/cdd_of/G_SW_model_best_csdacd_of.pth --resume_G_WS ../weights/cdd_of/G_WS_model_best_csdacd_of.pth --save_on --subset test
 ```
 
 You can also use the following command to infer a single pair of images
@@ -64,7 +64,7 @@ We have also prepared a pair of demo images for you to use for model inference, 
 
 ```bash
 cd src
-python sw_test.py --exp_config ../configs/cdd/config_cdd_csdacd_ff.yaml --resume ../weights/cdd_ff/CD_model_best_csdacd_ff.pth --ckp_path ../weights/cdd_ff/CD_model_best_csdacd_ff.pth --t1_dir ../demo/summer.jpg --t2_dir ../demo/winter.jpg --gt_dir ../demo/label.jpg
+python sw_test.py --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml --resume ../weights/cdd_of/CD_model_best_csdacd_of.pth --ckp_path ../weights/cdd_of/CD_model_best_csdacd_of.pth --t1_dir ../demo/summer.jpg --t2_dir ../demo/winter.jpg --gt_dir ../demo/label.jpg
 ```
 
 The CSDACD is built based on CDLab Framework, for more model evaluation details, please refer to https://github.com/Bobholamovic/CDLab.
@@ -118,10 +118,6 @@ Here are the qualitative and quantitative results of our proposed model and base
 
 |  Method   |   P(%)    |   R(%)    |   F1(%)   |  IoU(%)   | Params(M) |
 | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
-|   FC-EF   |   93.79   |   85.93   |   89.68   |   81.30   | **1.35**  |
-|    P2V    |   98.39   |   98.18   |   98.29   |   96.63   |   5.42    |
-|   RSIT    |   97.47   |   96.48   |   96.97   |   94.12   |   18.06   |
-|   SDACD   |   97.34   |   97.74   |   97.54   |   95.20   |   52.92   |
 | CSDACD-EF |   98.79   |   98.54   |   98.66   |   97.36   |   28.18   |
 | CSDACD-FF |   98.79   | **98.66** |   98.72   |   97.48   |   31.30   |
 | CSDACD-OF | **98.85** |   98.61   | **98.73** | **97.49** |   34.62   |
@@ -130,15 +126,9 @@ Here are the qualitative and quantitative results of our proposed model and base
 
 |  Method   | P(%)  | R(%)  | F1(%) | IoU(%) | Params(M) |
 | :-------: | :---: | :---: | :---: | :----: | :-------: |
-|   FC-EF   | 91.50 | 85.55 | 88.42 | 79.25  |   1.35    |
-|    P2V    | 93.96 | 87.67 | 90.70 | 82.99  |   5.42    |
-|   LUNET   | 82.50 | 86.06 | 84.24 | 72.78  |   8.45    |
-|    IFN    | 96.64 | 88.72 | 92.51 | 86.06  |   21.28   |
-|   CDNET   | 92.20 | 85.56 | 88.75 | 79.78  |   1.43    |
-|  SNUNET   | 86.26 | 89.08 | 87.65 | 78.02  |   10.20   |
 | CSDACD-EF | 93.24 | 90.01 | 91.60 | 84.50  |   28.18   |
 | CSDACD-FF |       |       |       |        |           |
-| CSDACD-OF |       |       |       |        |           |
+| CSDACD-OF | 94.02 | 91.15 | 92.56 | 86.15  |   34.62   |
 
 # Acknowledgements
 

@@ -89,5 +89,6 @@ dependencies:
     - urllib3==1.26.16
     - werkzeug==2.2.3
     - zipp==3.15.0
+    - scikit-image
 prefix: /home/ub/App/anaconda3/envs/pytorch
 

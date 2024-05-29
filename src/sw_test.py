@@ -145,7 +145,7 @@ def main():
         parser.add_argument('--save_on', action='store_true')
         parser.add_argument('--mu', type=float, nargs='+', default=(0.0,0.0,0.0))
         parser.add_argument('--sigma', type=float, nargs='+', default=(255.0,255.0,255.0))
-        parser.add_argument('--glob', type=str, default='*.png')
+        parser.add_argument('--glob', type=str, default='*.jpg')
         parser.add_argument('--threshold', type=float, default=0.5)
         parser.add_argument('--out_type', type=str, choices=['logits', 'logits2', 'dist'], default='logits')
 

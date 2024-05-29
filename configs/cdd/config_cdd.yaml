@@ -2,7 +2,7 @@
 
 # Data
 dataset: CDD
-num_workers: 16
+num_workers: 1
 repeats: 1
 subset: val
 crop_size: 256

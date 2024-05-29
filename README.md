@@ -64,7 +64,7 @@ We have also prepared a pair of demo images for you to use for model inference, 
 
 ```bash
 cd src
-python sw_test.py --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml --ckp_path ../weights/cdd_of/CD_model_best_csdacd_of.pth --ckp_path_G_SW ../weights/cdd_of/G_SW_model_best_csdacd_of.pth --ckp_path_G_WS ../weights/cdd_of/G_WS_model_best_csdacd_of.pth --t1_dir ../demo/cdd/summer --t2_dir ../demo/cdd/winter --gt_dir ../demo/cdd/label --save_on --out_dir ../demo/cdd/tmp
+python sw_test.py --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml --ckp_path ../weights/cdd_of/CD_model_best_csdacd_of.pth --ckp_path_G_SW ../weights/cdd_of/G_SW_model_best_csdacd_of.pth --ckp_path_G_WS ../weights/cdd_of/G_WS_model_best_csdacd_of.pth --t1_dir ../demo/cdd/summer --t2_dir ../demo/cdd/winter --gt_dir ../demo/cdd/label --save_on --out_dir ../demo/cdd/tmp --glob *.jpg
 ```
 
 The CSDACD is built based on CDLab Framework, for more model evaluation details, please refer to https://github.com/Bobholamovic/CDLab.

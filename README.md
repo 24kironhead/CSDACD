@@ -57,14 +57,14 @@ You can also use the following command to infer a single pair of images
 
 ```bash
 cd src
-python sw_test.py --exp_config PATH_TO_CONFIG_FILE --resume PATH_TO_CHECKPOINT --ckp_path PATH_TO_CHECKPOINT --t1_dir PATH_TO_T1_DIR --t2_dir PATH_TO_T2_DIR --gt_dir PATH_TO_GT_DIR
+python sw_test.py --exp_config PATH_TO_CONFIG_FILE --ckp_path PATH_TO_CD_MODEL_CHECKPOINT --ckp_path_G_SW PATH_TO_G_SW_MODEL_CHECKPOINT --ckp_path_G_WS PATH_TO_G_WS_MODEL_CHECKPOINT --t1_dir PATH_TO_T1_DIR --t2_dir PATH_TO_T2_DIR --gt_dir PATH_TO_GT_DIR
 ```
 
 We have also prepared a pair of demo images for you to use for model inference, use
 
 ```bash
 cd src
-python sw_test.py --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml --resume ../weights/cdd_of/CD_model_best_csdacd_of.pth --ckp_path ../weights/cdd_of/CD_model_best_csdacd_of.pth --t1_dir ../demo/summer.jpg --t2_dir ../demo/winter.jpg --gt_dir ../demo/label.jpg
+python sw_test.py --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml --ckp_path ../weights/cdd_of/CD_model_best_csdacd_of.pth --ckp_path_G_SW ../weights/cdd_of/G_SW_model_best_csdacd_of.pth --ckp_path_G_WS ../weights/cdd_of/G_WS_model_best_csdacd_of.pth --t1_dir ../demo/summer.jpg --t2_dir ../demo/winter.jpg --gt_dir ../demo/label.jpg
 ```
 
 The CSDACD is built based on CDLab Framework, for more model evaluation details, please refer to https://github.com/Bobholamovic/CDLab.
@@ -96,7 +96,7 @@ We provide pretrained models for three different model structures (EF、FF and O
 | :-------: | :----------------------------------------------------------: |
 | CSDACD_EF | [BaiduNetdisk (Extraction code: eib6)](https://pan.baidu.com/s/1oFDa3Lo1tGoUf5YZep9amQ) |
 | CSDACD_FF |                                                              |
-| CSDACD_OF |                                                              |
+| CSDACD_OF | [BaiduNetdisk (Extraction code: i3jh)](https://pan.baidu.com/s/1c35-u8VNW7uSk9mTyl1RyQ) |
 
 # Results
 

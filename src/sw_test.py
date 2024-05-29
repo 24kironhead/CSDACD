@@ -91,7 +91,7 @@ class PostProcessor:
             raise ValueError
 
 
-def sw_infer(t1, t2, model, window_size, stride, prep, postp):
+def sw_infer(t1, t2, model, gan_SW, gan_WS, window_size, stride, prep, postp):
     h, w = t1.shape[:2]
     win_gen = WindowGenerator(h, w, window_size, window_size, stride, stride)
     prob_map = np.zeros((h,w), dtype=np.float)
@@ -100,7 +100,7 @@ def sw_infer(t1, t2, model, window_size, stride, prep, postp):
         for rows, cols in win_gen:
             patch1, patch2 = t1[rows, cols], t2[rows, cols]
             patch1, patch2 = prep(patch1), prep(patch2)
-            pred = model(patch1, patch2)
+            pred = model(patch1, patch2, gan_SW(patch1), gan_WS(patch2))
             prob = postp(pred)
             prob_map[rows,cols] += prob
             cnt[rows,cols] += 1
@@ -109,12 +109,20 @@ def sw_infer(t1, t2, model, window_size, stride, prep, postp):
 
 
 def prepare_model(args):
-    model = model_factory(args['model'], args)
+    (model, gan_SW, gan_WS, dis_S, dis_W) = model_factory(args['model'], args)
     ckp_dict = torch.load(args['ckp_path'])
+    ckp_dict_G_SW = torch.load(args['ckp_path_G_SW'])
+    ckp_dict_G_WS = torch.load(args['ckp_path_G_WS'])
     model.load_state_dict(ckp_dict['state_dict'])
+    gan_SW.load_state_dict(ckp_dict_G_SW['state_dict'])
+    gan_WS.load_state_dict(ckp_dict_G_WS['state_dict'])
     model.to(args['device'])
+    gan_SW.to(args['device'])
+    gan_WS.to(args['device'])
     model.eval()
-    return model
+    gan_SW.eval()
+    gan_WS.eval()
+    return model, gan_SW, gan_WS
 
 
 def main():
@@ -125,6 +133,8 @@ def main():
         parser.add_argument('--exp_config', type=str, default='')
         parser.add_argument('--inherit_off', action='store_true')
         parser.add_argument('--ckp_path', type=str)
+        parser.add_argument('--ckp_path_G_SW', type=str)
+        parser.add_argument('--ckp_path_G_WS', type=str)
         parser.add_argument('--device', type=str, default='cpu')
         parser.add_argument('--t1_dir', type=str, default='')
         parser.add_argument('--t2_dir', type=str, default='')
@@ -145,7 +155,7 @@ def main():
     
     logger = R['Logger']
 
-    model = prepare_model(args)
+    model, gan_SW, gan_WS = prepare_model(args)
 
     prep = Preprocessor(args['mu'], args['sigma'], args['device'])
     postp = PostProcessor(args['out_type'])
@@ -158,7 +168,7 @@ def main():
             gt = (imread(path)>0).astype('uint8')
             t1 = imread(osp.join(args['t1_dir'], basename))
             t2 = imread(osp.join(args['t2_dir'], basename))
-            prob_map = sw_infer(t1, t2, model, args['window_size'], args['stride'], prep, postp)
+            prob_map = sw_infer(t1, t2, model, gan_SW, gan_WS, args['window_size'], args['stride'], prep, postp)
             cm = (prob_map>args['threshold']).astype('uint8')
             
             prec.update(cm, gt)

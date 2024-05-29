@@ -15,6 +15,19 @@ conda env create -f environment.yml -n csdacd
 conda activate csdacd
 ```
 
+Tested using Python 3.7 on Ubuntu 20.04, CUDA 11.6, pytorch 1.13.1. Please choose the appropriate pytorch version based on your computer.
+
+# Docker
+
+We also provided a Docker image of the project's runtime environment, please use
+
+```bash
+docker pull kironhead683/csdacd
+docker run --gpus all -it -v PTAH_TO_CSDACD:/workspace kironhead683/csdacd
+cd workspace
+conda activate pytorch
+```
+
 # Get Started
 
 Change the dataset locations to your own in `src/constants.py`.
@@ -57,7 +70,7 @@ You can also use the following command to infer a single pair of images
 
 ```bash
 cd src
-python sw_test.py --exp_config PATH_TO_CONFIG_FILE --ckp_path PATH_TO_CD_MODEL_CHECKPOINT --ckp_path_G_SW PATH_TO_G_SW_MODEL_CHECKPOINT --ckp_path_G_WS PATH_TO_G_WS_MODEL_CHECKPOINT --t1_dir PATH_TO_T1_DIR --t2_dir PATH_TO_T2_DIR --gt_dir PATH_TO_GT_DIR
+python sw_test.py --exp_config PATH_TO_CONFIG_FILE --ckp_path PATH_TO_CD_MODEL_CHECKPOINT --ckp_path_G_SW PATH_TO_G_SW_MODEL_CHECKPOINT --ckp_path_G_WS PATH_TO_G_WS_MODEL_CHECKPOINT --t1_dir PATH_TO_T1_DIR --t2_dir PATH_TO_T2_DIR --gt_dir PATH_TO_GT_DIR --save_on --out_dir PATH_TO_OUT_DIR --glob *.jpg/*.png
 ```
 
 We have also prepared a pair of demo images for you to use for model inference, use
@@ -65,6 +78,7 @@ We have also prepared a pair of demo images for you to use for model inference, 
 ```bash
 cd src
 python sw_test.py --exp_config ../configs/cdd/config_cdd_csdacd_of.yaml --ckp_path ../weights/cdd_of/CD_model_best_csdacd_of.pth --ckp_path_G_SW ../weights/cdd_of/G_SW_model_best_csdacd_of.pth --ckp_path_G_WS ../weights/cdd_of/G_WS_model_best_csdacd_of.pth --t1_dir ../demo/cdd/summer --t2_dir ../demo/cdd/winter --gt_dir ../demo/cdd/label --save_on --out_dir ../demo/cdd/tmp --glob *.jpg
+python sw_test.py --exp_config ../configs/whu/config_whu_csdacd_of.yaml --ckp_path ../weights/whu_of/CD_model_best_csdacd_of.pth --ckp_path_G_SW ../weights/whu_of/G_SW_model_best_csdacd_of.pth --ckp_path_G_WS ../weights/whu_of/G_WS_model_best_csdacd_of.pth --t1_dir ../demo/whu/A --t2_dir ../demo/whu/B --gt_dir ../demo/whu/label --save_on --out_dir ../demo/whu/tmp --glob *.png
 ```
 
 The CSDACD is built based on CDLab Framework, for more model evaluation details, please refer to https://github.com/Bobholamovic/CDLab.
@@ -169,7 +183,5 @@ If you find this project helpful for your research, please consider citing the f
   urldate = {2023-07-06},
   langid = {english}
 }
-
-
 ```
 

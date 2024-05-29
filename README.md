@@ -155,7 +155,7 @@ Here are the qualitative and quantitative results of our proposed model and base
 
 If you find this project helpful for your research, please consider citing the following BibTeX entry.
 
-```latex
+```BibTex
 @article{linTransitionProcessPairtoVideo2023,
   title = {Transition {{Is}} a {{Process}}: {{Pair-to-Video Change Detection Networks}} for {{Very High Resolution Remote Sensing Images}}},
   shorttitle = {Transition {{Is}} a {{Process}}},

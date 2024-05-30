@@ -1,6 +1,6 @@
 # CSDACD: Domain-adaptive Change Detection Network for Cross-seasonal Remote Sensing Images
 
-The source code for CSDACD: Domain-adaptive Change Detection Network for Cross-seasonal Remote Sensing Images. For more details, please refer to our paper 
+The source code for CSDACD: Domain-adaptive Change Detection Network for Cross-seasonal Remote Sensing Images. For more details, please refer to our paper.
 
 # Abstract
 
